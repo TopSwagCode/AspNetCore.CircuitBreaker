@@ -1,6 +1,6 @@
 # TopSwagCode.DesignPatterns.CircuitBreaker
 
-Small sample project for how to implement CircuitBreaker pattern in Dotnet Core 3.0 with HttpClientFactory and Polly. Below can be seen a gif showing the project working.
+Small sample project for how to implement CircuitBreaker pattern in Dotnet Core 3.0 with HttpClientFactory and Polly. Below can be seen a gif showing the project working (Click on image to view full size).
 
 * On the left the sample ExternalService showing Logger for requests.
 * Upper right OurService calling the ExternalService.
