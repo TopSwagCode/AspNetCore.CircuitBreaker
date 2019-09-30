@@ -64,4 +64,4 @@ So I will retry 3 times at: 2, 4 and 8 seconds.
 
 # Supported by:
 
-![https://www.jetbrains.com/?from=TopSwagCode](jetbrains.svg)
+[![https://www.jetbrains.com/?from=TopSwagCode](jetbrains.svg)](https://www.jetbrains.com/?from=TopSwagCode)
