@@ -62,3 +62,6 @@ To reuse my policies for multiple HttpClient's, I have put the policies in their
 The retry policy can be as creative as you want it. In my sample I am using Math.Pow with the number of retry attemps.
 So I will retry 3 times at: 2, 4 and 8 seconds.
 
+# Supported by:
+
+![https://www.jetbrains.com/?from=TopSwagCode](jetbrains.svg)
