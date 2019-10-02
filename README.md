@@ -1,6 +1,8 @@
 # TopSwagCode.DesignPatterns.CircuitBreaker
 
-Small sample project for how to implement CircuitBreaker pattern in Dotnet Core 3.0 with HttpClientFactory and Polly. Below can be seen a gif showing the project working (Click on image to view full size).
+## WebAPI
+
+Small sample project for how to implement CircuitBreaker pattern in Dotnet Core 3.0 with HttpClientFactory - Polly and a simple homemade one. Below can be seen a gif showing the project working with Polly (Click on image to view full size).
 
 * On the left the sample ExternalService showing Logger for requests.
 * Upper right OurService calling the ExternalService.
@@ -12,7 +14,7 @@ We can see the service working on the first call. Afterwards there is 3 call's t
 
 If you want to read more about the Circuit Breaker Pattern you can find my blog post about it here: [https://topswagcode.com/2016/02/07/Circuit-Breaker-Pattern/](https://topswagcode.com/2016/02/07/Circuit-Breaker-Pattern/)
 
-For the project I created 2 Services.
+For the Polly project I created 2 Services.
 
 * WeatherService
 * WeatherServiceWithRetry
@@ -61,6 +63,37 @@ To reuse my policies for multiple HttpClient's, I have put the policies in their
 
 The retry policy can be as creative as you want it. In my sample I am using Math.Pow with the number of retry attemps.
 So I will retry 3 times at: 2, 4 and 8 seconds.
+
+## Console App
+
+TODO Add description for all the sample methods
+
+## Homemade Circuit Breaker
+
+It's a simple implementation of Circuit breaker. Checking state before allowing calls. Recording failures and success to update state.
+
+``` csharp
+    public async Task ExecuteAsync(Func<Task> action)
+    {
+        if (AllowedToMakeCall() == false)
+        {
+            throw new CircuitBreakerException("Open Circuit. Stopping calls");
+        }
+        
+        try
+        {
+            await action();
+        }
+        catch(Exception e)
+        {
+            
+            RecordFailure();
+            throw;
+        }
+
+        RecordSuccess();
+    }
+```
 
 # Supported by:
 

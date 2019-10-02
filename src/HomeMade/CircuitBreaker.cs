@@ -21,9 +21,7 @@ namespace HomeMade
             {
                 throw new CircuitBreakerException("Open Circuit. Stopping calls");
             }
-            
-            Task task;
-            
+
             try
             {
                 await action();
@@ -34,8 +32,6 @@ namespace HomeMade
                 RecordFailure();
                 throw;
             }
-
-            _currentNumberOfErrors = 0;
 
             RecordSuccess();
         }
