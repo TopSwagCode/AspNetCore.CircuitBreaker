@@ -22,7 +22,7 @@ namespace HomeMade
             CircuitBreaker cb = new CircuitBreaker();
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
 
                 try
@@ -31,7 +31,7 @@ namespace HomeMade
                 }
                 catch (Exception e)
                 {
-                    
+                    _logger.LogInformation($"Worker failed with: {e.Message} at: {DateTimeOffset.Now}");
                 }
                 
             }
@@ -42,11 +42,11 @@ namespace HomeMade
 
             if (DateTime.Now.Second > 30)
             {
-                throw new Exception();
+                throw new Exception("ERROR");
             }
 
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            await Task.Delay(1000, stoppingToken);
+            await Task.Delay(5, stoppingToken);
 
         }
     }

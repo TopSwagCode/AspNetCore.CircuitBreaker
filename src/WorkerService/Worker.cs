@@ -120,23 +120,20 @@ namespace WorkerService
         {
             try
             {
-                await circuitPolicy.ExecuteAsync(() => BadLogic(stoppingToken));
+                await _circuitPolicy.ExecuteAsync(() => BadLogic(stoppingToken));
             }
             catch (Exception e)
             {
                 await Task.Delay(1000);
                 Console.WriteLine(e.Message);
             }
-            
-
-            
         }
 
-        public AsyncCircuitBreakerPolicy circuitPolicy { get; set; }
+        private AsyncCircuitBreakerPolicy _circuitPolicy;
         
         private void SetupCircuitBreaker()
         {
-            circuitPolicy = Policy.Handle<Exception>()
+            _circuitPolicy = Policy.Handle<Exception>()
                 .CircuitBreakerAsync(
                     3,
                     TimeSpan.FromSeconds(10),

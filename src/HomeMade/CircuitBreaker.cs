@@ -15,18 +15,18 @@ namespace HomeMade
             
         }
 
-        public Task ExecuteAsync(Func<Task> action)
+        public async Task ExecuteAsync(Func<Task> action)
         {
             if (AllowedToMakeCall() == false)
             {
-                throw new CircuitBreakerException();
+                throw new CircuitBreakerException("Open Circuit. Stopping calls");
             }
             
             Task task;
             
             try
             {
-                task = action();
+                await action();
             }
             catch(Exception e)
             {
@@ -38,7 +38,6 @@ namespace HomeMade
             _currentNumberOfErrors = 0;
 
             RecordSuccess();
-            return task;
         }
 
         private void RecordSuccess()
@@ -99,10 +98,5 @@ namespace HomeMade
         {
             return _circuitState == 0;
         }
-    }
-
-    public class CircuitBreakerException : Exception
-    {
-        
     }
 }
