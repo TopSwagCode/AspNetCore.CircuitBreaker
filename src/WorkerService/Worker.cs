@@ -90,7 +90,7 @@ namespace WorkerService
                 .RetryAsync( 
                 3,
                 (e,i) => _logger.LogInformation($"Error '{e.Message}' at retry #{i}"))
-                .ExecuteAsync(() => BadLogic(stoppingToken));
+                .ExecuteAsync( () => BadLogic(stoppingToken));
         }
         
         // Attempt #4

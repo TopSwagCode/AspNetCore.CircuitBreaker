@@ -19,11 +19,35 @@ namespace HomeMade
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            CircuitBreaker cb = new CircuitBreaker();
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
+
+                try
+                {
+                    await cb.ExecuteAsync(() => BadLogic(stoppingToken));
+                }
+                catch (Exception e)
+                {
+                    
+                }
+                
             }
+        }
+        
+        private async Task BadLogic(CancellationToken stoppingToken)
+        {
+
+            if (DateTime.Now.Second > 30)
+            {
+                throw new Exception();
+            }
+
+            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            await Task.Delay(1000, stoppingToken);
+
         }
     }
 }
