@@ -1,7 +1,5 @@
 # TopSwagCode.DesignPatterns.CircuitBreaker
 
-# TODO Move Worker Service into SRC DOOOOH ! :P
-
 Small sample project for how to implement CircuitBreaker pattern in Dotnet Core 3.0 with HttpClientFactory and Polly. Below can be seen a gif showing the project working (Click on image to view full size).
 
 * On the left the sample ExternalService showing Logger for requests.
