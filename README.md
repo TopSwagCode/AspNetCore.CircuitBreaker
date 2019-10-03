@@ -68,6 +68,35 @@ So I will retry 3 times at: 2, 4 and 8 seconds.
 
 TODO Add description for all the sample methods
 
+Attempt 1 - Crash and burn
+![attempt1.png](attempt1.png)
+
+Attempt 2 - DDOSing your self
+![attempt2.gif](attempt2.gif)
+
+Attempt 3 - 3rd time is not the charm
+![attempt3.png](attempt3.png)
+
+Attempt 4 - Longer delay for retries
+![attempt4.png](attempt4.png)
+
+Attempt 5 - The never ending story
+![attempt5.png](attempt5.png)
+
+Attempt 6 - Circuit Breaker 
+![attempt6.png](attempt6.png)
+
+Improvements could still be done by combining Retries with Circuit Breaker, depending your usecase. Retries can also be improved. A regular Retry policy can impact your system in cases of high concurrency and scalability and under high contention. To overcome peaks of similar retries coming from many clients in case of partial outages, a good workaround is to add a jitter strategy to the retry algorithm/policy. This can improve the overall performance of the end-to-end system by adding randomness to the exponential backoff. This spreads out the spikes when issues arise. When you use a plain Polly policy, code to implement jitter could look like the following example:
+
+``` csharp
+    Random jitterer = new Random(); 
+    Policy
+    .Handle<HttpResponseException>()
+    .WaitAndRetry(5,
+        retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)) + TimeSpan.FromMilliseconds(jitterer.Next(0, 100)) 
+    );
+```
+
 ## Homemade Circuit Breaker
 
 It's a simple implementation of Circuit breaker. Checking state before allowing calls. Recording failures and success to update state.

@@ -21,7 +21,7 @@ namespace WorkerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            
+            SetupCircuitBreaker();
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -40,9 +40,8 @@ namespace WorkerService
                 // Attempt #5
                 //await GettingCloser(stoppingToken);
                 
-                // Attempt #6
-                //SetupCircuitBreaker();
-                //await CallBadLogicWrappedInCircuitBreaker(stoppingToken);
+                // Attempt
+                await CallBadLogicWrappedInCircuitBreaker(stoppingToken);
                 
                 /*
                  * Future -> Add Fallback to call other methods / services
