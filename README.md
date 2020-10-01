@@ -1,4 +1,4 @@
-# TopSwagCode.DesignPatterns.CircuitBreaker
+# AspNetCore.CircuitBreaker
 
 ## WebAPI
 
